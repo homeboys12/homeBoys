@@ -1,12 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>hello!</h1>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+  <title>Document</title>
+</head>
+<script>
+  $(document).ready(function () {
+    weatherData()
+    weatherPoint()
+  })
+
+  function weatherData() {
+    $.ajax({
+      type: "GET",
+      url: "/weather",
+      data: {},
+      success: function (response) {
+        console.log(response['weatherLists'])
+      }
+    })
+  }
+
+  function weatherPoint() {
+    $.ajax({
+      type: "GET",
+      url: "/weather",
+      data: {},
+      success: function (response) {
+
+        let weatherPoints_rain = response['weatherpoints'][0]
+        let weatherPoints_snow = response['weatherpoints'][1]
+
+        point_rain_html = `${weatherPoints_rain}점`
+        $('#point').append(point_rain_html)
+
+
+      }
+    })
+  }
+
+
+
+</script>
+
+<body>
+  <h1>오늘의 날씨는</h1>
+  <h2 id="point"></h2>
+</body>
+
 </html>
