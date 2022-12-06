@@ -101,36 +101,10 @@ else:
     score = -30
     text = "오늘은 매우 더울것으로 예상됩니다"
 
-# 잘 나오는 지 확인
-print(weatherPoints_snow, weatherPoints_rain)
-print(weatherData_rain_msg)
-print(weatherResult_list)
+
+# uvPart@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
-@app.route('/')
-def home():
-    return render_template('index.html')
-
-
-@app.route("/weather", methods=["GET"])
-def weather_get():
-    return jsonify({'weatherMsgLists': weatherMsg_list,
-                    'weatherPoints': weatherPoints_list,
-                    'weatherResult': weatherResult_list,
-                    'temperature': temperature,
-                    'temperature_score': score,
-                    'temperature_text': text})
-
-
-if __name__ == '__main__':
-    app.run('0.0.0.0', port=5001, debug=True)
-
-
-app = Flask(__name__)
-
-
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
 uvData = requests.get('https://weather.naver.com/', headers=headers)
 
 uvSoup = BeautifulSoup(uvData.text, 'html.parser')
@@ -156,14 +130,26 @@ else:
 uv_list = [uvStatus, uvScore]
 
 
+# 잘 나오는 지 확인
+print(weatherPoints_snow, weatherPoints_rain)
+print(weatherData_rain_msg)
+print(weatherResult_list)
+
+
 @app.route('/')
 def home():
     return render_template('index.html')
 
 
-@app.route('/uv', methods=['GET'])
-def uv_get():
-    return jsonify({'uv': uv_list})
+@app.route("/weather", methods=["GET"])
+def weather_get():
+    return jsonify({'weatherMsgLists': weatherMsg_list,
+                    'weatherPoints': weatherPoints_list,
+                    'weatherResult': weatherResult_list,
+                    'temperature': temperature,
+                    'temperature_score': score,
+                    'temperature_text': text,
+                    'uv': uv_list})
 
 
 if __name__ == '__main__':
