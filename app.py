@@ -10,10 +10,12 @@ weatherData = requests.get(
     'https://www.weather.go.kr/w/obs-climate/land/city-obs.do?auto_man=m&stn=0&dtm=&type=t99&reg=100&tm=', headers=headers)
 
 weatherSoup = BeautifulSoup(weatherData.text, 'html.parser')
+
 weatherData_rain = weatherSoup.select_one(
     '#weather_table > tbody > tr:nth-child(42) > td:nth-child(9)').text
 weatherData_snow = weatherSoup.select_one(
     '#weather_table > tbody > tr:nth-child(42) > td:nth-child(10)').text
+
 
 weatherData_rain_msg = ""
 weatherData_snow_msg = ""
