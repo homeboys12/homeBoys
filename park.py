@@ -25,6 +25,7 @@ def test_get():
    for title2 in title:
       arr.append(title2.text)
 
+   temperature = float(arr[1])
    if float(arr[1]) <= 5:
       score = -30
       text = "오늘은 날씨가 매우 춥네요"
@@ -43,8 +44,8 @@ def test_get():
    else:
       score = -30
       text = "오늘은 매우 더울것으로 예상됩니다"
-
-   return jsonify({'score': score, 'text': text})
+   print(temperature)
+   return jsonify({'temperature': temperature, 'score': score, 'text': text})
 
 if __name__ == '__main__':
    app.run('0.0.0.0',port=5000,debug=True)

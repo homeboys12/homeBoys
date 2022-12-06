@@ -8,7 +8,11 @@
     <title>Temperature</title>
   </head>
   <body>
-
+    <h1>오늘의 온도</h1>
+    <h2 id="temperature"></h2>
+    <h2 id="temperature_point"></h2>
+    <h2 id="temperature_result"></h2>
+  </body>
   <script>
         window.onload=function(){
             $.ajax({
@@ -16,16 +20,14 @@
               url: "/temperature",
               data: {},
               success: function(response){
-                var scoreDiv = document.createElement('div');
-                var scoreMsg = document.createTextNode(response['score']);
 
-                var textDiv = document.createElement('div');
-                var textMsg = document.createTextNode(response['text']);
+                temperature = `온도 : ${response['temperature']}`;
+                score = `${response['score']}점`;
+                text = `${response['text']}`;
 
-                scoreDiv.appendChild(scoreMsg);
-                document.body.appendChild(scoreDiv);
-                textDiv.appendChild(textMsg);
-                document.body.appendChild(textDiv);
+                $("#temperature").append(temperature);
+                $("#temperature_point").append(score);
+                $("#temperature_result").append(text);
               }
             })
         }
