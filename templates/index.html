@@ -17,10 +17,21 @@
               success: function (response) {
                   let uvStatus = response['uv'][0]
                   let uvScore = response['uv'][1]
-
-                  let temp_html = `오늘의 자외선은 ${uvStatus}입니다.</p>
-                                    오늘의 자외선 점수는 ${uvScore} 입니다.</p>`
-                  $('#post-box').append(temp_html)
+                  if (uvStatus=='높음') {
+                      let temp_html = `<p>오늘의 자외선은 ${uvStatus}입니다.</p>
+                                   <p>오늘의 자외선 점수는 ${uvScore} 입니다.</p>
+                                       <p>자외선 지수가 높으니 선글라스를 챙기세요! 😎</p>`
+                      $('#post-box').append(temp_html)
+                  } else if (uvStatus=='매우높음') {
+                      let temp_html = `<p>오늘의 자외선은 ${uvStatus}입니다.</p>
+                                   <p>오늘의 자외선 점수는 ${uvScore} 입니다.</p>
+                                       <p>자외선 지수가 높으니 외출을 자제하세요! 🥵</p>`
+                      $('#post-box').append(temp_html)
+                  } else {
+                      let temp_html = `<p>오늘의 자외선은 ${uvStatus}입니다.</p>
+                                   <p>오늘의 자외선 점수는 ${uvScore} 입니다.</p>`
+                      $('#post-box').append(temp_html)
+                  }
               }
 
           })

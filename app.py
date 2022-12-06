@@ -6,12 +6,12 @@ app = Flask(__name__)
 
 
 headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-uvdata = requests.get('https://weather.naver.com/',headers=headers)
+uvData = requests.get('https://weather.naver.com/',headers=headers)
 
-uvsoup = BeautifulSoup(uvdata.text, 'html.parser')
+uvSoup = BeautifulSoup(uvData.text, 'html.parser')
 
 
-uvStatus = uvsoup.select_one('#lifeIndex > div.inner_card > div > div > ul > li:nth-child(1) > div').text.strip()
+uvStatus = uvSoup.select_one('#lifeIndex > div.inner_card > div > div > ul > li:nth-child(1) > div').text.strip()
 uvScore = 0
 
 if (uvStatus=="낮음") :
