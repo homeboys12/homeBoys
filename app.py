@@ -15,30 +15,53 @@ weatherData_rain = weatherSoup.select_one(
 weatherData_snow = weatherSoup.select_one(
     '#weather_table > tbody > tr:nth-child(42) > td:nth-child(10)').text
 
-weatherData_rain_result = ""
-weatherData_snow_result = ""
+weatherData_rain_msg = ""
+weatherData_snow_msg = ""
+
 weatherPoints_rain = 0
 weatherPoints_snow = 0
 
+weatherData_result_rain = 0
+weatherData_result_snow = 0
+
+
 if (weatherData_rain.isspace() == True):
-    weatherData_rain_result = "강수 확률이 없습니다."
+    weatherData_rain_msg = "비 예보가없습니다."
     weatherPoints_rain = 40
-else:
-    weatherData_rain_result = weatherData_rain
+    weatherData_rain = 0
+
+elif (float(weatherData_rain) < float(3.0)):
+    weatherData_rain_msg = "약한 비 예보가 있습니다."
+    weatherPoints_rain = -30
+
+
+elif (float(weatherData_rain) < float(15.0)):
+    weatherData_rain_msg = "비 예보가 있습니다."
+    weatherPoints_rain = -30
+
+
+elif (float(14.0) < float(weatherData_rain)):
+    weatherData_rain_msg = "강한 비 예보가 있습니다."
     weatherPoints_rain = -30
 
 
 if (weatherData_snow.isspace() == True):
-    weatherData_snow_result = "강설 확률이 없습니다."
+    weatherData_snow_msg = "눈 예보가 없습니다."
     weatherPoints_snow = 0
+    weatherData_snow = 0
 else:
+    weatherData_snow_msg = "눈 예보가 있습니다."
     weatherData_snow_result = weatherData_snow
     weatherPoints_snow = 40
 
-weatherData_list = [weatherData_rain_result, weatherData_snow_result]
+
+weatherMsg_list = [weatherData_rain_msg, weatherData_snow_msg]
 weatherPoints_list = [weatherPoints_rain, weatherPoints_snow]
+weatherResult_list = [weatherData_rain, weatherData_snow]
 
 print(weatherPoints_snow, weatherPoints_rain)
+print(weatherData_rain_msg)
+print(weatherResult_list)
 
 
 @app.route('/')
@@ -48,7 +71,7 @@ def home():
 
 @app.route("/weather", methods=["GET"])
 def weather_get():
-    return jsonify({'weatherLists': weatherData_list, 'weatherpoints': weatherPoints_list})
+    return jsonify({'weatherMsgLists': weatherMsg_list, 'weatherpoints': weatherPoints_list})
 
 
 if __name__ == '__main__':
