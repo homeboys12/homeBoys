@@ -1,84 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <title>Temperature</title>
+</head>
+<script>
+  $(document).ready(function () {
+    weatherMsg();
+    weatherPoint();
+    weatherResult();
+  });
 
-    <title>Document</title>
-  </head>
-  <script>
-    $(document).ready(function () {
-      weatherMsg();
-      weatherPoint();
-      weatherResult();
+  function weatherMsg() {
+    $.ajax({
+      type: "GET",
+      url: "/weather",
+      data: {},
+      success: function (response) {
+        let weatherMsg_rain = response["weatherMsgLists"][0];
+        let weatherMsg_snow = response["weatherMsgLists"][1];
+
+        msg_rain_html = `${weatherMsg_rain}`;
+        msg_snow_html = `${weatherMsg_snow}`;
+        $("#rain_msg").append(msg_rain_html);
+        $("#snow_msg").append(msg_snow_html);
+      },
     });
+  }
 
-    function weatherMsg() {
-      $.ajax({
-        type: "GET",
-        url: "/weather",
-        data: {},
-        success: function (response) {
-          let weatherMsg_rain = response["weatherMsgLists"][0];
-          let weatherMsg_snow = response["weatherMsgLists"][1];
+  function weatherPoint() {
+    $.ajax({
+      type: "GET",
+      url: "/weather",
+      data: {},
+      success: function (response) {
+        let weatherPoints_rain = response["weatherPoints"][0];
+        let weatherPoints_snow = response["weatherPoints"][1];
 
-          msg_rain_html = `${weatherMsg_rain}`;
-          msg_snow_html = `${weatherMsg_snow}`;
-          $("#rain_msg").append(msg_rain_html);
-          $("#snow_msg").append(msg_snow_html);
-        },
-      });
-    }
+        point_rain_html = `${weatherPoints_rain}점`;
+        point_snow_html = `${weatherPoints_snow}점`;
+        $("#rain_point").append(point_rain_html);
+        $("#snow_point").append(point_snow_html);
+      },
+    });
+  }
 
-    function weatherPoint() {
-      $.ajax({
-        type: "GET",
-        url: "/weather",
-        data: {},
-        success: function (response) {
-          let weatherPoints_rain = response["weatherPoints"][0];
-          let weatherPoints_snow = response["weatherPoints"][1];
+  function weatherResult() {
+    $.ajax({
+      type: "GET",
+      url: "/weather",
+      data: {},
+      success: function (response) {
+        let weatherResult_rain = response["weatherResult"][0];
+        let weatherResult_snow = response["weatherResult"][1];
 
-          point_rain_html = `${weatherPoints_rain}점`;
-          point_snow_html = `${weatherPoints_snow}점`;
-          $("#rain_point").append(point_rain_html);
-          $("#snow_point").append(point_snow_html);
-        },
-      });
-    }
+        result_rain_html = `${weatherResult_rain}mm`;
+        result_snow_html = `${weatherResult_snow}cm`;
 
-    function weatherResult() {
-      $.ajax({
-        type: "GET",
-        url: "/weather",
-        data: {},
-        success: function (response) {
-          let weatherResult_rain = response["weatherResult"][0];
-          let weatherResult_snow = response["weatherResult"][1];
+        $("#rain_result").append(result_rain_html);
+        $("#snow_result").append(result_snow_html);
+        console.log(response);
+      },
+    });
+  }
+</script>
 
-          result_rain_html = `${weatherResult_rain}mm`;
-          result_snow_html = `${weatherResult_snow}cm`;
+<body>
+  <h1>오늘의 비 예보</h1>
+  <h2 id="rain_msg"></h2>
+  <h2 id="rain_point"></h2>
+  <h2 id="rain_result"></h2>
+  <br />
+  <h1>오늘의 눈 예보</h1>
+  <h2 id="snow_msg"></h2>
+  <h2 id="snow_point"></h2>
+  <h2 id="snow_result"></h2>
+</body>
 
-          $("#rain_result").append(result_rain_html);
-          $("#snow_result").append(result_snow_html);
-          console.log(response);
-        },
-      });
-    }
-  </script>
-
-  <body>
-    <h1>오늘의 비 예보</h1>
-    <h2 id="rain_msg"></h2>
-    <h2 id="rain_point"></h2>
-    <h2 id="rain_result"></h2>
-    <br />
-    <h1>오늘의 눈 예보</h1>
-    <h2 id="snow_msg"></h2>
-    <h2 id="snow_point"></h2>
-    <h2 id="snow_result"></h2>
-  </body>
 </html>
