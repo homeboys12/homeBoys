@@ -7,10 +7,7 @@ app = Flask(__name__)
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
 
-<< << << < HEAD
 
-
-== == == =
 # weatherpart@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 weatherData = requests.get(
     'https://www.weather.go.kr/w/obs-climate/land/city-obs.do?auto_man=m&stn=0&dtm=&type=t99&reg=100&tm=', headers=headers)
@@ -164,13 +161,6 @@ elif mise.text == "매우나쁨":
 
 mise_arr = [mise.text, mise_msg, mise_score]
 
-# 데이터확인
-
-
-@app.route('/mise', methods=['GET'])
-def mise_get():
-    return jsonify({})
-
 
 # 잘 나오는 지 확인
 print(weatherPoints_snow, weatherPoints_rain)
@@ -195,10 +185,6 @@ def weather_get():
                     'uv': uv_list,
                     'mise_list': mise_arr})
 
-
-if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
->>>>>> > main
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
