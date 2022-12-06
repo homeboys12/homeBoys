@@ -1,10 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body></body>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            mise_Data();
+        })
+
+        function mise_Data(){
+            $.ajax({
+                type: "GET",
+                url: "/mise",
+                data: {},
+                success: function (response) {
+                    let mise_text = response['mise_list'][0]
+                    let mise_score = response['mise_list'][1]
+                    let mise_msg = response['mise_list'][2]
+
+
+                    let temp_html = `<p>오늘의 미세먼지는 ${mise_text} 입니다.</p>
+                                     <p>${mise_score}</p>
+                                     <p>오늘의 미세민지 점수는 ${mise_msg} 점입니다!</p> `
+
+
+                    $('#information').append(temp_html);
+                }
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <div class="wrap">
+        <h1>미세먼지 수치를 알아보자!</h1>
+        <div id="information">
+
+        </div>
+    </div>
+</body>
 </html>
