@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/UV.iml" filepath="$PROJECT_DIR$/.idea/UV.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/pyboot.iml" filepath="$PROJECT_DIR$/.idea/pyboot.iml" />
     </modules>
   </component>
 </project>

@@ -1,65 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
-    <script>
-        $(document).ready(function () {uvData() })
-      function uvData() {
-          $.ajax({
-              type: "GET",
-              url: "/uv",
-              data: {},
-              success: function (response) {
-                  let uvStatus = response['uv'][0]
-                  let uvScore = response['uv'][1]
-                  if (uvStatus=='높음') {
-                      let uvPost = `<p>오늘의 자외선은 ${uvStatus}입니다.</p>
-                                   <p>오늘의 자외선 점수는 ${uvScore} 입니다.</p>
-                                    <p>자외선 지수가 높으니 선글라스를 챙기세요! 😎</p>`
-                      $('#uvBox').append(uvPost)
-                  } else if (uvStatus=='매우높음') {
-                      let uvPost = `<p>오늘의 자외선은 ${uvStatus}입니다.</p>
-                                   <p>오늘의 자외선 점수는 ${uvScore} 입니다.</p>
-                                   <p>자외선 지수가 높으니 외출을 자제하세요! 🥵</p>`
-                      $('#uvBox').append(uvPost)
-                  } else if (uvStatus=='위험') {
-                      let uvPost = `<p>오늘의 자외선은 ${uvStatus}입니다.</p>
-                                   <p>오늘의 자외선 점수는 ${uvScore} 입니다.</p>
-                                   <p>자외선 지수가 매우 높습니다! 도망쳐!! 🏃</p>`
-                      $('#uvBox').append(uvPost)
-                  } else if (uvStatus=='보통') {
-                      let uvPost = `<p>오늘의 자외선은 ${uvStatus}입니다.</p>
-                                   <p>오늘의 자외선 점수는 ${uvScore} 입니다.</p>
-                                   <p>자외선 지수가 보통입니다! 그래도 선크림은햣 필수!</p>`
-                      $('#uvBox').append(uvPost)
-                  }  else if (uvStatus=='낮음') {
-                      let uvPost = `<p>오늘의 자외선은 ${uvStatus}입니다.</p>
-                                   <p>오늘의 자외선 점수는 ${uvScore} 입니다.</p>
-                                   <p>자외선 지수가 완벽합니다! 나가볼까요?</p>`
-                      $('#uvBox').append(uvPost)
-                  }
-                  else {
-                      let uvPost = `<p>표시가 필요합니다</p>`
-                      $('#uvBox').append(uvPost)
-                  }
-              }
-
-          })
-      }
-    </script>
-
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <title>Temperature</title>
 </head>
+<script>
+  $(document).ready(function () {
+    weatherMsg();
+    weatherPoint();
+    weatherResult();
+    temperatureResult();
+  });
+
+  function weatherMsg() {
+    $.ajax({
+      type: "GET",
+      url: "/weather",
+      data: {},
+      success: function (response) {
+        let weatherMsg_rain = response["weatherMsgLists"][0];
+        let weatherMsg_snow = response["weatherMsgLists"][1];
+
+        msg_rain_html = `${weatherMsg_rain}`;
+        msg_snow_html = `${weatherMsg_snow}`;
+        $("#rain_msg").append(msg_rain_html);
+        $("#snow_msg").append(msg_snow_html);
+      },
+    });
+  }
+
+  function weatherPoint() {
+    $.ajax({
+      type: "GET",
+      url: "/weather",
+      data: {},
+      success: function (response) {
+        let weatherPoints_rain = response["weatherPoints"][0];
+        let weatherPoints_snow = response["weatherPoints"][1];
+
+        point_rain_html = `${weatherPoints_rain}점`;
+        point_snow_html = `${weatherPoints_snow}점`;
+        $("#rain_point").append(point_rain_html);
+        $("#snow_point").append(point_snow_html);
+      },
+    });
+  }
+
+  function weatherResult() {
+    $.ajax({
+      type: "GET",
+      url: "/weather",
+      data: {},
+      success: function (response) {
+        let weatherResult_rain = response["weatherResult"][0];
+        let weatherResult_snow = response["weatherResult"][1];
+
+        result_rain_html = `${weatherResult_rain}mm`;
+        result_snow_html = `${weatherResult_snow}cm`;
+
+        $("#rain_result").append(result_rain_html);
+        $("#snow_result").append(result_snow_html);
+        console.log(response);
+      },
+    });
+  }
+
+  function temperatureResult() {
+    $.ajax({
+      type: "GET",
+      url: "/weather",
+      data: {},
+      success: function (response) {
+
+        temperature = `온도 : ${response['temperature']}`;
+        score = `${response['temperature_score']}점`;
+        text = `${response['temperature_text']}`;
+
+        $("#temperature").append(temperature);
+        $("#temperature_point").append(score);
+        $("#temperature_result").append(text);
+      }
+    })
+  }
+</script>
+
 <body>
-    <div>
-        <h1>자외선을 측정해보자</h1>
-    </div>
-    <div id="uvBox">
-    </div>
+  <h1>오늘의 비 예보</h1>
+  <h2 id="rain_msg"></h2>
+  <h2 id="rain_point"></h2>
+  <h2 id="rain_result"></h2>
+  <br />
+  <h1>오늘의 눈 예보</h1>
+  <h2 id="snow_msg"></h2>
+  <h2 id="snow_point"></h2>
+  <h2 id="snow_result"></h2>
+  <br />
+  <h1>오늘의 온도</h1>
+  <h2 id="temperature"></h2>
+  <h2 id="temperature_point"></h2>
+  <h2 id="temperature_result"></h2>
+</body>
+
+</html>
+
+
+<body>
 
 </body>
-</html>
