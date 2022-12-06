@@ -13,17 +13,24 @@
 </head>
 <script>
   $(document).ready(function () {
-    weatherData()
+    weatherMsg()
     weatherPoint()
   })
 
-  function weatherData() {
+  function weatherMsg() {
     $.ajax({
       type: "GET",
       url: "/weather",
       data: {},
       success: function (response) {
-        console.log(response['weatherLists'])
+        let weatherMsg_rain = response['weatherMsgLists'][0]
+        let weatherMsg_snow = response['weatherMsgLists'][1]
+
+        msg_rain_html = `${weatherMsg_rain}`
+        msg_snow_html = `${weatherMsg_snow}`
+        $('#rain_msg').append(msg_rain_html)
+        $('#snow_msg').append(msg_snow_html)
+
       }
     })
   }
@@ -39,7 +46,9 @@
         let weatherPoints_snow = response['weatherpoints'][1]
 
         point_rain_html = `${weatherPoints_rain}점`
-        $('#point').append(point_rain_html)
+        point_snow_html = `${weatherPoints_snow}점`
+        $('#rain_point').append(point_rain_html)
+        $('#snow_point').append(point_snow_html)
 
 
       }
@@ -51,8 +60,13 @@
 </script>
 
 <body>
-  <h1>오늘의 날씨는</h1>
-  <h2 id="point"></h2>
+  <h1>오늘의 비 예보</h1>
+  <h2 id="rain_msg"></h2>
+  <h2 id="rain_point"></h2>
+  <br>
+  <h1>오늘의 눈 예보</h1>
+  <h2 id="snow_msg"></h2>
+  <h2 id="snow_point"></h2>
 </body>
 
 </html>
