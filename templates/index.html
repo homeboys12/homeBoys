@@ -18,19 +18,34 @@
                   let uvStatus = response['uv'][0]
                   let uvScore = response['uv'][1]
                   if (uvStatus=='높음') {
-                      let temp_html = `<p>오늘의 자외선은 ${uvStatus}입니다.</p>
+                      let uvPost = `<p>오늘의 자외선은 ${uvStatus}입니다.</p>
                                    <p>오늘의 자외선 점수는 ${uvScore} 입니다.</p>
-                                       <p>자외선 지수가 높으니 선글라스를 챙기세요! 😎</p>`
-                      $('#post-box').append(temp_html)
+                                    <p>자외선 지수가 높으니 선글라스를 챙기세요! 😎</p>`
+                      $('#uvBox').append(uvPost)
                   } else if (uvStatus=='매우높음') {
-                      let temp_html = `<p>오늘의 자외선은 ${uvStatus}입니다.</p>
+                      let uvPost = `<p>오늘의 자외선은 ${uvStatus}입니다.</p>
                                    <p>오늘의 자외선 점수는 ${uvScore} 입니다.</p>
-                                       <p>자외선 지수가 높으니 외출을 자제하세요! 🥵</p>`
-                      $('#post-box').append(temp_html)
-                  } else {
-                      let temp_html = `<p>오늘의 자외선은 ${uvStatus}입니다.</p>
-                                   <p>오늘의 자외선 점수는 ${uvScore} 입니다.</p>`
-                      $('#post-box').append(temp_html)
+                                   <p>자외선 지수가 높으니 외출을 자제하세요! 🥵</p>`
+                      $('#uvBox').append(uvPost)
+                  } else if (uvStatus=='위험') {
+                      let uvPost = `<p>오늘의 자외선은 ${uvStatus}입니다.</p>
+                                   <p>오늘의 자외선 점수는 ${uvScore} 입니다.</p>
+                                   <p>자외선 지수가 매우 높습니다! 도망쳐!! 🏃</p>`
+                      $('#uvBox').append(uvPost)
+                  } else if (uvStatus=='보통') {
+                      let uvPost = `<p>오늘의 자외선은 ${uvStatus}입니다.</p>
+                                   <p>오늘의 자외선 점수는 ${uvScore} 입니다.</p>
+                                   <p>자외선 지수가 보통입니다! 그래도 선크림을 필수!</p>`
+                      $('#uvBox').append(uvPost)
+                  }  else if (uvStatus=='낮음') {
+                      let uvPost = `<p>오늘의 자외선은 ${uvStatus}입니다.</p>
+                                   <p>오늘의 자외선 점수는 ${uvScore} 입니다.</p>
+                                   <p>자외선 지수가 완벽합니다! 나가볼까요?</p>`
+                      $('#uvBox').append(uvPost)
+                  }
+                  else {
+                      let uvPost = `<p>표시가 필요합니다</p>`
+                      $('#uvBox').append(uvPost)
                   }
               }
 
@@ -43,7 +58,7 @@
     <div>
         <h1>자외선을 측정해보자</h1>
     </div>
-    <div id="post-box">
+    <div id="uvBox">
     </div>
 
 </body>

@@ -22,8 +22,10 @@ elif (uvStatus=="높음"):
     uvScore = 5
 elif (uvStatus == "매우높음"):
     uvScore = 0
-else:
+elif (uvStatus == "위험"):
     uvScore = -20
+else:
+    uvScore = '표시 내용이 없습니다'
 
 uv_list=[uvStatus,uvScore]
 
