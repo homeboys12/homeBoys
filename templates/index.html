@@ -13,9 +13,9 @@
     weatherMsg();
     weatherPoint();
     weatherResult();
+    temperatureResult();
   });
 
-  // weatherPart@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   function weatherMsg() {
     $.ajax({
       type: "GET",
@@ -69,8 +69,23 @@
     });
   }
 
-  // temperaturePart@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  function temperatureResult() {
+    $.ajax({
+      type: "GET",
+      url: "/weather",
+      data: {},
+      success: function (response) {
 
+        temperature = `온도 : ${response['temperature']}`;
+        score = `${response['temperature_score']}점`;
+        text = `${response['temperature_text']}`;
+
+        $("#temperature").append(temperature);
+        $("#temperature_point").append(score);
+        $("#temperature_result").append(text);
+      }
+    })
+  }
 </script>
 
 <body>
@@ -83,6 +98,16 @@
   <h2 id="snow_msg"></h2>
   <h2 id="snow_point"></h2>
   <h2 id="snow_result"></h2>
+  <br />
+  <h1>오늘의 온도</h1>
+  <h2 id="temperature"></h2>
+  <h2 id="temperature_point"></h2>
+  <h2 id="temperature_result"></h2>
 </body>
 
 </html>
+
+
+<body>
+
+</body>
