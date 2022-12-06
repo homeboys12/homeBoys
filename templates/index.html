@@ -4,7 +4,30 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Temperature</title>
   </head>
-  <body></body>
+  <body>
+
+  <script>
+        window.onload=function(){
+            $.ajax({
+              type: "GET",
+              url: "/temperature",
+              data: {},
+              success: function(response){
+                var scoreDiv = document.createElement('div');
+                var scoreMsg = document.createTextNode(response['score']);
+
+                var textDiv = document.createElement('div');
+                var textMsg = document.createTextNode(response['text']);
+
+                scoreDiv.appendChild(scoreMsg);
+                document.body.appendChild(scoreDiv);
+                textDiv.appendChild(textMsg);
+                document.body.appendChild(textDiv);
+              }
+            })
+        }
+    </script>
 </html>
