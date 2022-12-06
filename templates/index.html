@@ -1,10 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-  </head>
-  <body></body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {uvData() })
+      function uvData() {
+          $.ajax({
+              type: "GET",
+              url: "/uv",
+              data: {},
+              success: function (response) {
+                  let uvStatus = response['uv'][0]
+                  let uvScore = response['uv'][1]
+
+                  let temp_html = `오늘의 자외선은 ${uvStatus}입니다.</p>
+                                    오늘의 자외선 점수는 ${uvScore} 입니다.</p>`
+                  $('#post-box').append(temp_html)
+              }
+
+          })
+      }
+    </script>
+
+</head>
+<body>
+    <div>
+        <h1>자외선을 측정해보자</h1>
+    </div>
+    <div id="post-box">
+    </div>
+
+</body>
 </html>
