@@ -10,15 +10,12 @@
 </head>
 <script>
   $(document).ready(function () {
-    weatherMsg();
-    weatherPoint();
-    weatherResult();
-    temperatureResult();
-    uvResult()
-    mise_Data()
+
     totalScore()
     temperature_degree()
     mise_degree()
+    uv_degree()
+    rain_degree()
   });
 
   function totalScore() {
@@ -84,6 +81,30 @@
       success: function (response) {
         let mise_text_html = `${response['mise_list'][0]}`
         $("#mise_txt").append(mise_text_html)
+      },
+    });
+  }
+
+  function uv_degree() {
+    $.ajax({
+      type: "GET",
+      url: "/weather",
+      data: {},
+      success: function (response) {
+        let uvStatus = `${response['uv'][0]}`
+        $("#uv_txt").append(uvStatus)
+      },
+    });
+  }
+
+  function rain_degree() {
+    $.ajax({
+      type: "GET",
+      url: "/weather",
+      data: {},
+      success: function (response) {
+        let weatherResult_rain = `${response["weatherResult"][0]}`;
+        $("#rain_txt").append(weatherResult_rain)
       },
     });
   }
@@ -238,24 +259,29 @@
   <hr>
   <div class="temperature">
     <h3>오늘의 온도</h3>
-    <h1 id="totalTemperature"></h1>
+    <h1><span id="totalTemperature"></span>°C</h1>
     <h3 id="temperature_text"></h3>
     <h3 id="temperature_recommand"></h3>
   </div>
   <hr>
-  <h3>미세먼지</h3>
-  <h1 id="mise_txt"></h1>
+  <div class="contents" style="display: flex; flex-direction: row;">
+    <div class="subContents" style="margin-right: 70px;">
+      <h3>미세먼지</h3>
+      <h1 id="mise_txt"></h1>
+    </div>
+    <div class="subContents" style="margin-right: 70px;">
+      <h3>자외선</h3>
+      <h1 id="uv_txt"></h1>
+    </div>
+    <div class="subContents" style="margin-right: 70px;">
+      <h3>강수량</h3>
+      <h1><span id="rain_txt"></span>mm</h1>
+    </div>
+  </div>
 
-  <br />
-  <br />
-  <br />
-  <hr>
 
-  <br />
-  <br />
-  <br />
 
-  <h1>오늘의 비 예보</h1>
+  <!-- <h1>오늘의 비 예보</h1>
   <h2 id="rain_msg"></h2>
   <h2 id="rain_point"></h2>
   <h2 id="rain_result"></h2>
@@ -266,7 +292,7 @@
   <h2 id="snow_result"></h2>
   <br />
   <h1>오늘의 온도</h1>
-  <h2 id="temperature">°C</h2>
+  <h2 id="temperature"></h2>
   <h2 id="temperature_point"></h2>
   <h2 id="temperature_result"></h2>
   <br>
@@ -274,7 +300,7 @@
   <h2 id="uvBox"></h2>
   <br>
   <h1>오늘의 미세먼지</h1>
-  <h2 id="information"></h2>
+  <h2 id="information"></h2> -->
 </body>
 
 </html>
