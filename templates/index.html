@@ -17,6 +17,8 @@
     uvResult()
     mise_Data()
     totalScore()
+    temperature_degree()
+    mise_degree()
   });
 
   function totalScore() {
@@ -41,6 +43,47 @@
 
         $("#totalScore").append(scoreSum)
 
+      },
+    });
+  }
+
+  function temperature_degree() {
+    $.ajax({
+      type: "GET",
+      url: "/weather",
+      data: {},
+      success: function (response) {
+        temperature = `${response['temperature']}`;
+        temperature_text = `${response['temperature_text']}`;
+        temperature_clothRecommand = ""
+
+        if (temperature < 5) {
+          temperature_clothRecommand = "롱패딩을 추천드려요!"
+        } else if (temperature > 4 && temperature < 10) {
+          temperature_clothRecommand = "코트를 추천드려요!"
+        } else if (temperature > 9 && temperatrue < 20) {
+          temperature_clothRecommand = "자켓을 추천드려요!"
+        } else if (temperature > 19 && temperatrue < 27) {
+          temperature_clothRecommand = "후드티를 추천드려요!"
+        } else if (temperature > 26) {
+          temperature_clothRecommand = "반팔을 추천드려요!"
+        }
+
+        $("#totalTemperature").append(temperature)
+        $("#temperature_text").append(temperature_text)
+        $("#temperature_recommand").append(temperature_clothRecommand)
+      },
+    });
+  }
+
+  function mise_degree() {
+    $.ajax({
+      type: "GET",
+      url: "/weather",
+      data: {},
+      success: function (response) {
+        let mise_text_html = `${response['mise_list'][0]}`
+        $("#mise_txt").append(mise_text_html)
       },
     });
   }
@@ -105,7 +148,7 @@
       data: {},
       success: function (response) {
 
-        temperature = `온도 : ${response['temperature']}`;
+        temperature = `${response['temperature']}`;
         score = `${response['temperature_score']}점`;
         text = `${response['temperature_text']}`;
 
@@ -187,13 +230,21 @@
 
 <body>
   <div class="totalScore">
-    <h3>Today's<br>Weather<br>Score</h3>
+    <h3>Today's<br>
+      Weather<br>
+      Score</h3>
     <h1 id="totalScore"></h1>
   </div>
-
-  <div class="rain">
-
+  <hr>
+  <div class="temperature">
+    <h3>오늘의 온도</h3>
+    <h1 id="totalTemperature"></h1>
+    <h3 id="temperature_text"></h3>
+    <h3 id="temperature_recommand"></h3>
   </div>
+  <hr>
+  <h3>미세먼지</h3>
+  <h1 id="mise_txt"></h1>
 
   <br />
   <br />
@@ -215,7 +266,7 @@
   <h2 id="snow_result"></h2>
   <br />
   <h1>오늘의 온도</h1>
-  <h2 id="temperature"></h2>
+  <h2 id="temperature">°C</h2>
   <h2 id="temperature_point"></h2>
   <h2 id="temperature_result"></h2>
   <br>
