@@ -16,7 +16,34 @@
     temperatureResult();
     uvResult()
     mise_Data()
+    totalScore()
   });
+
+  function totalScore() {
+    $.ajax({
+      type: "GET",
+      url: "/weather",
+      data: {},
+      success: function (response) {
+        let rainScore = response['weatherPoints'][0]
+        let snowScore = response['weatherPoints'][1]
+        let miseScore = response['mise_list'][2]
+        let temperatureScore = response['temperature_score']
+        let uvScore = response['uv'][1]
+
+        let scoreArr = [rainScore, snowScore, miseScore, temperatureScore, uvScore]
+
+        let scoreSum = 0
+
+        for (let i = 0; i < scoreArr.length; i++) {
+          scoreSum += scoreArr[i]
+        }
+
+        $("#totalScore").append(scoreSum)
+
+      },
+    });
+  }
 
   function weatherMsg() {
     $.ajax({
@@ -159,6 +186,17 @@
 </script>
 
 <body>
+  <h3>Today's</h3>
+  <h3>Weather</h3>
+  <h3>Score</h3>
+  <h1 id="totalScore"></h1>
+  <br />
+  <br />
+  <br />
+  <hr>
+  <br />
+  <br />
+  <br />
   <h1>오늘의 비 예보</h1>
   <h2 id="rain_msg"></h2>
   <h2 id="rain_point"></h2>

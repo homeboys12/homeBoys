@@ -39,6 +39,10 @@ if (weatherData_rain.isspace() == True):
     weatherPoints_rain = 40
     weatherData_rain = 0
 
+elif (float(weatherData_rain) < float(1.0)):
+    weatherData_rain_msg = "비 예보가 있긴 하지만 강수량이 아주 적습니다"
+    weatherPoints_rain = -5
+
 elif (float(weatherData_rain) < float(3.0)):
     weatherData_rain_msg = "약한 비 예보가 있습니다."
     weatherPoints_rain = -30
@@ -163,10 +167,10 @@ mise_arr = [mise.text, mise_msg, mise_score]
 
 
 # 잘 나오는 지 확인
-print(weatherPoints_snow, weatherPoints_rain)
-print(weatherData_rain_msg)
-print(weatherResult_list)
-print(mise_arr)
+# print(weatherPoints_snow, weatherPoints_rain)
+# print(weatherData_rain_msg)
+# print(weatherResult_list)
+# print(mise_arr)
 
 
 @app.route('/')
